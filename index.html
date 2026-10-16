@@ -9,20 +9,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,300;9..144,0,400;9..144,0,500;9..144,1,300;9..144,1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  /* Blue-ivory-white palette */
-  --navy:   #0F1B2D;   /* deep navy — primary dark */
-  --navy2:  #162236;   /* slightly lighter navy */
-  --blue:   #1E3A5F;   /* mid blue */
-  --blue2:  #2C5282;   /* accent blue */
-  --sky:    #EEF4FF;   /* pale sky — light bg */
-  --sky2:   #E2ECFF;   /* slightly deeper sky */
-  --ivory:  #FAF9F6;   /* warm ivory — lightest bg */
-  --ivory2: #F2F0EC;   /* soft ivory */
+  --navy:   #0F1B2D;
+  --navy2:  #162236;
+  --blue:   #1E3A5F;
+  --blue2:  #2C5282;
+  --sky:    #EEF4FF;
+  --sky2:   #E2ECFF;
+  --ivory:  #FAF9F6;
+  --ivory2: #F2F0EC;
   --W:      #FFFFFF;
-  --mid:    #4A5568;   /* readable mid-grey blue */
-  --line:   #C8D4E8;   /* blue-tinted rule */
-  --acc:    #2B6CB0;   /* blue accent for labels/highlights */
-  --acc2:   #3182CE;   /* brighter blue */
+  --mid:    #4A5568;
+  --line:   #C8D4E8;
+  --acc:    #2B6CB0;
+  --acc2:   #3182CE;
+
+  /* accent palette */
+  --teal:   #0D9488;   /* teal — finance / ledger */
+  --amber:  #B45309;   /* amber — commissions / alerts */
+  --violet: #6D28D9;   /* violet — packages / AI */
+  --rose:   #BE185D;   /* rose — marketing / campaigns */
+  --sage:   #2D6A4F;   /* sage — confirmed / fleet */
+  --coral:  #C2410C;   /* coral — cta accent */
 
   --disp:   'Fraunces', Georgia, serif;
   --sans:   'Inter', system-ui, sans-serif;
@@ -49,37 +56,77 @@ a { text-decoration: none; color: inherit; }
 /* ── NAV ── */
 nav {
   position: fixed; inset: 0 0 auto; z-index: 100;
-  transition: background .3s, border-color .3s;
+  transition: background .35s, box-shadow .35s, border-color .35s;
   border-bottom: 1px solid transparent;
 }
-nav.up { background: rgba(250,249,246,.97); backdrop-filter: blur(18px); border-color: var(--line); }
+nav::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(15,27,45,.55) 0%, transparent 100%);
+  pointer-events: none; transition: opacity .35s;
+}
+nav.up::after { opacity: 0; }
+nav.up {
+  background: rgba(250,249,246,.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-color: var(--line);
+  box-shadow: 0 1px 12px rgba(15,27,45,.08);
+}
 .nav-in {
+  position: relative; z-index: 1;
   max-width: var(--max); margin-inline: auto;
-  padding: 20px var(--gap);
+  padding: 18px var(--gap);
   display: flex; align-items: center; justify-content: space-between;
 }
 .nav-logo { display: flex; align-items: center; }
-.nav-logo img { height: 44px; width: auto; display: block; filter: brightness(0) invert(1); transition: filter .3s; }
-nav.up .nav-logo img { filter: none; }
-.nav-links { display: flex; align-items: center; gap: 2rem; }
-.nav-links a { font-size: .875rem; letter-spacing: .08em; text-transform: uppercase; }
-nav:not(.up) .nav-links a { color: rgba(255,255,255,.6); }
-nav.up .nav-links a { color: var(--mid); }
-.nav-cta { color: var(--acc2) !important; font-weight: 500 !important; }
+.nav-logo img { height: 40px; width: auto; display: block; }
+.nav-links { display: flex; align-items: center; gap: 1.75rem; }
+.nav-links a {
+  font-size: .8rem; letter-spacing: .08em; text-transform: uppercase;
+  font-weight: 500; transition: color .2s;
+}
+nav:not(.up) .nav-links a { color: rgba(255,255,255,.82); }
+nav:not(.up) .nav-links a:hover { color: #fff; }
+nav.up .nav-links a { color: var(--navy); }
+nav.up .nav-links a:hover { color: var(--acc2); }
+.nav-cta {
+  background: var(--acc2); color: #fff !important;
+  padding: .5rem 1.2rem; border-radius: 4px;
+  letter-spacing: .06em !important;
+  transition: background .2s !important;
+}
+nav:not(.up) .nav-cta { background: rgba(255,255,255,.15); color: #fff !important; border: 1px solid rgba(255,255,255,.3); }
+nav:not(.up) .nav-cta:hover { background: rgba(255,255,255,.25) !important; }
+nav.up .nav-cta:hover { background: var(--blue2) !important; }
 @media (max-width: 720px) { .nav-links { display: none; } }
 
 /* ── HERO ── */
 #hero {
   position: relative; overflow: hidden;
-  padding-block: clamp(5rem, 10vw, 7rem) clamp(3rem, 5vw, 4rem);
-  background: linear-gradient(160deg, var(--navy) 0%, var(--blue) 45%, #1a4a7a 70%, #0d2240 100%);
+  padding-block: clamp(5.5rem, 12vw, 8rem) clamp(4rem, 6vw, 5.5rem);
+  background:
+    linear-gradient(145deg,
+      #080f1a 0%,
+      #0d1f38 20%,
+      #0f2d52 40%,
+      #122947 60%,
+      #0a1628 80%,
+      #060d18 100%);
   display: flex; flex-direction: column; justify-content: center;
 }
 #hero::before {
-  content: ''; position: absolute; inset: 0;
+  content: ''; position: absolute; inset: 0; pointer-events: none;
   background:
-    radial-gradient(ellipse 80% 60% at 70% 30%, rgba(44,82,130,.45) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(15,27,45,.6) 0%, transparent 60%);
+    radial-gradient(ellipse 70% 80% at 80% 10%, rgba(13,148,136,.18) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 55% at 15% 85%, rgba(109,40,217,.2) 0%, transparent 55%),
+    radial-gradient(ellipse 90% 50% at 50% 50%, rgba(30,58,95,.55) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 88% 70%, rgba(190,24,93,.12) 0%, transparent 50%);
+}
+#hero::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 30% 40% at 35% 20%, rgba(126,200,227,.1) 0%, transparent 60%),
+    linear-gradient(to bottom, transparent 60%, rgba(6,13,24,.6) 100%);
 }
 .hero-in {
   position: relative; z-index: 2;
@@ -93,13 +140,14 @@ nav.up .nav-links a { color: var(--mid); }
   font-weight: 300; line-height: 1.05; color: var(--W);
   margin-bottom: 1.2rem; max-width: 18ch;
 }
-.hero-h em { font-style: italic; color: #7EC8E3; }
-.hero-sub { font-size: clamp(1rem, 1.4vw, 1.1rem); font-weight: 300; color: rgba(255,255,255,.62); max-width: 46ch; line-height: 1.8; margin-bottom: 1.8rem; }
+.hero-h em { font-style: italic; background: linear-gradient(100deg, #5eead4 0%, #a78bfa 60%, #f9a8d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-accent-line { width: 56px; height: 3px; background: linear-gradient(90deg, #5eead4, #a78bfa); border-radius: 2px; margin-bottom: 1.6rem; }
+.hero-sub { font-size: clamp(1rem, 1.4vw, 1.1rem); font-weight: 400; color: rgba(255,255,255,.85); max-width: 46ch; line-height: 1.8; margin-bottom: 1.8rem; }
 .hero-row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
 .btn-blue { display: inline-flex; align-items: center; gap: .4rem; background: var(--acc2); color: var(--W); padding: .85rem 1.8rem; border-radius: 4px; font-size: .88rem; font-weight: 500; letter-spacing: .02em; }
 .btn-ghost { display: inline-flex; align-items: center; gap: .4rem; color: rgba(255,255,255,.7); border: 1px solid rgba(255,255,255,.28); padding: .85rem 1.8rem; border-radius: 4px; font-size: .88rem; }
 .hero-who { display: flex; gap: 0; flex-wrap: wrap; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,.1); padding-top: 1rem; }
-.hero-who-item { font-family: var(--mono); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.32); padding: .2rem 1.5rem .2rem 0; }
+.hero-who-item { font-family: var(--mono); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.55); padding: .2rem 1.5rem .2rem 0; }
 
 /* ── SHARED ── */
 .wrap { max-width: var(--max); margin-inline: auto; padding-inline: var(--gap); }
@@ -113,13 +161,13 @@ nav.up .nav-links a { color: var(--mid); }
 .bg-white  { background: var(--W); }
 
 .eyebrow { font-family: var(--mono); font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--acc); margin-bottom: 1rem; display: block; }
-.eyebrow-w { color: rgba(255,255,255,.45); }
+.eyebrow-w { color: rgba(255,255,255,.7); }
 
 .sec-h { font-family: var(--disp); font-size: clamp(2.4rem, 4.5vw, 4rem); font-weight: 400; line-height: 1.08; color: var(--navy); }
 .sec-h em { font-style: italic; color: var(--acc2); }
 .sec-h-w { color: var(--W); }
-.sec-lead { font-size: clamp(1rem, 1.4vw, 1.125rem); font-weight: 400; color: var(--mid); line-height: 1.8; max-width: 54ch; margin-top: 1rem; }
-.sec-lead-w { color: rgba(255,255,255,.58); }
+.sec-lead { font-size: clamp(1rem, 1.4vw, 1.125rem); font-weight: 400; color: #3D4A5C; line-height: 1.8; max-width: 54ch; margin-top: 1rem; }
+.sec-lead-w { color: rgba(255,255,255,.82); }
 
 /* two-col */
 .two { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
@@ -137,7 +185,7 @@ nav.up .nav-links a { color: var(--mid); }
 @media (max-width: 400px) { .ov-pillars { grid-template-columns: 1fr; } }
 .ov-pillar { background: var(--navy2); padding: 1.6rem 1.5rem; }
 .ov-pillar-n { display: block; font-family: var(--disp); font-size: 1.05rem; font-weight: 400; color: var(--W); margin-bottom: .5rem; }
-.ov-pillar-d { display: block; font-size: .9rem; color: rgba(255,255,255,.38); line-height: 1.6; }
+.ov-pillar-d { display: block; font-size: .9rem; color: rgba(255,255,255,.7); line-height: 1.6; }
 
 /* ── 02 · BOOKINGS ── */
 .bk-stack { display: flex; flex-direction: column; gap: 2.5rem; margin-top: 2rem; }
@@ -165,7 +213,7 @@ nav.up .nav-links a { color: var(--mid); }
   font-size: .875rem;
 }
 .bn { font-weight: 500; color: var(--navy); font-size: .875rem; }
-.bs { font-family: var(--mono); font-size: .8rem; color: var(--mid); margin-top: .12rem; }
+.bs { font-family: var(--mono); font-size: .8rem; color: #5A6A7E; margin-top: .12rem; }
 .ba { font-family: var(--mono); font-size: .875rem; font-weight: 500; color: var(--navy); }
 .bdg { font-family: var(--mono); font-size: .75rem; font-weight: 500; padding: .2rem .55rem; border-radius: 3px; white-space: nowrap; }
 .bdg-g  { background: #DCFCE7; color: #166534; }
@@ -188,38 +236,38 @@ nav.up .nav-links a { color: var(--mid); }
 @media (max-width: 800px) { .pkg-showcase { grid-template-columns: 1fr; } }
 .pkg-main { background: var(--navy2); padding: 1.75rem; }
 .pkg-name { font-family: var(--disp); font-size: 1.2rem; font-weight: 400; color: var(--W); margin-bottom: .35rem; }
-.pkg-meta { font-family: var(--mono); font-size: .8rem; color: rgba(255,255,255,.3); margin-bottom: 1.25rem; }
+.pkg-meta { font-family: var(--mono); font-size: .8rem; color: rgba(255,255,255,.6); margin-bottom: 1.25rem; }
 .pkg-days { display: flex; flex-direction: column; gap: .3rem; }
 .pkg-day { display: flex; gap: .75rem; align-items: flex-start; }
 .pkg-day-n { font-family: var(--mono); font-size: .8rem; color: #7EC8E3; width: 32px; flex-shrink: 0; padding-top: .15rem; }
 .pkg-day-body { flex: 1; }
-.pkg-day-title { font-size: .875rem; font-weight: 500; color: rgba(255,255,255,.75); line-height: 1.3; }
-.pkg-day-detail { font-family: var(--mono); font-size: .8rem; color: rgba(255,255,255,.28); margin-top: .15rem; }
+.pkg-day-title { font-size: .875rem; font-weight: 500; color: rgba(255,255,255,.92); line-height: 1.3; }
+.pkg-day-detail { font-family: var(--mono); font-size: .8rem; color: rgba(255,255,255,.55); margin-top: .15rem; }
 .pkg-line { width: 1px; background: rgba(255,255,255,.07); margin: .25rem 0 .25rem 13px; height: 12px; }
 .pkg-side { background: rgba(255,255,255,.03); padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
 .pkg-tile { background: var(--navy2); border: 1px solid rgba(255,255,255,.07); border-radius: 8px; padding: 1rem 1.1rem; }
-.pkg-tile-lbl { font-family: var(--mono); font-size: .78rem; color: rgba(255,255,255,.35); letter-spacing: .06em; margin-bottom: .5rem; }
+.pkg-tile-lbl { font-family: var(--mono); font-size: .78rem; color: rgba(255,255,255,.65); letter-spacing: .06em; margin-bottom: .5rem; }
 .pkg-price-row { display: flex; justify-content: space-between; align-items: center; padding: .45rem 0; border-bottom: 1px solid rgba(255,255,255,.06); }
 .pkg-price-row:last-child { border: none; }
-.pkg-price-label { font-size: .875rem; color: rgba(255,255,255,.45); }
-.pkg-price-amt { font-family: var(--mono); font-size: .875rem; color: rgba(255,255,255,.65); }
+.pkg-price-label { font-size: .875rem; color: rgba(255,255,255,.75); }
+.pkg-price-amt { font-family: var(--mono); font-size: .875rem; color: rgba(255,255,255,.92); }
 
 /* ── 04 · PARTNER OPS + TRANSPORT ── */
 .dk-win { background: var(--navy2); border: 1px solid rgba(255,255,255,.08); border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,.2), 0 18px 50px rgba(0,0,0,.3); }
 .dk-bar { display: flex; align-items: center; justify-content: space-between; padding: .7rem 1.1rem; border-bottom: 1px solid rgba(255,255,255,.06); background: rgba(255,255,255,.02); }
-.dk-ttl { font-family: var(--mono); font-size: .8rem; color: rgba(255,255,255,.3); letter-spacing: .08em; text-transform: uppercase; }
-.dk-live { display: flex; align-items: center; gap: .3rem; font-family: var(--mono); font-size: .78rem; color: rgba(255,255,255,.24); }
+.dk-ttl { font-family: var(--mono); font-size: .8rem; color: rgba(255,255,255,.65); letter-spacing: .08em; text-transform: uppercase; }
+.dk-live { display: flex; align-items: center; gap: .3rem; font-family: var(--mono); font-size: .78rem; color: rgba(255,255,255,.55); }
 .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 6px #22c55e; animation: pulse 2s infinite; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-.dk-row { display: grid; grid-template-columns: 1fr auto auto; gap: .65rem; align-items: center; padding: .75rem 1.1rem; border-bottom: 1px solid rgba(255,255,255,.05); font-size: .875rem; }
-.dk-n { font-weight: 400; color: rgba(255,255,255,.7); }
-.dk-s { font-family: var(--mono); font-size: .8rem; color: rgba(255,255,255,.24); margin-top: .12rem; }
-.dk-a { font-family: var(--mono); font-size: .875rem; font-weight: 500; color: rgba(255,255,255,.48); }
+.dk-row { display: grid; grid-template-columns: 1fr auto auto; gap: .65rem; align-items: center; padding: .75rem 1.1rem; border-bottom: 1px solid rgba(255,255,255,.08); font-size: .875rem; }
+.dk-n { font-weight: 400; color: rgba(255,255,255,.9); }
+.dk-s { font-family: var(--mono); font-size: .8rem; color: rgba(255,255,255,.55); margin-top: .12rem; }
+.dk-a { font-family: var(--mono); font-size: .875rem; font-weight: 500; color: rgba(255,255,255,.82); }
 .dk-foot { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid rgba(255,255,255,.06); }
 .dkfc { padding: .8rem 1rem; border-right: 1px solid rgba(255,255,255,.05); text-align: center; }
 .dkfc:last-child { border: none; }
-.dkfv { font-family: var(--mono); font-size: .95rem; font-weight: 500; color: rgba(255,255,255,.72); }
-.dkfl { font-family: var(--mono); font-size: .75rem; color: rgba(255,255,255,.2); text-transform: uppercase; letter-spacing: .06em; margin-top: .12rem; }
+.dkfv { font-family: var(--mono); font-size: .95rem; font-weight: 500; color: rgba(255,255,255,.92); }
+.dkfl { font-family: var(--mono); font-size: .75rem; color: rgba(255,255,255,.55); text-transform: uppercase; letter-spacing: .06em; margin-top: .12rem; }
 
 /* cal window */
 .cal-win { background: var(--W); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(15,27,45,.04), 0 12px 32px rgba(15,27,45,.07); }
@@ -266,73 +314,139 @@ nav.up .nav-links a { color: var(--mid); }
 .also-tags span { font-size: .875rem; color: var(--navy); background: var(--W); border: 1px solid var(--line); padding: .4rem .75rem; border-radius: 4px; line-height: 1.5; }
 
 /* ── CTA / FOOTER ── */
-.footer-wrap { background: linear-gradient(160deg, var(--navy) 0%, var(--blue) 60%, #0d2240 100%); }
-#cta { text-align: center; padding: clamp(3rem,5vw,5rem) var(--gap) clamp(2.5rem,4vw,4rem); }
-.cta-h { font-family: var(--disp); font-size: clamp(2.8rem, 5.5vw, 5rem); font-weight: 300; color: var(--W); line-height: 1.05; margin-bottom: 1rem; }
-.cta-h em { font-style: italic; color: #7EC8E3; }
-.cta-sub { font-size: clamp(.95rem, 1.3vw, 1.05rem); font-weight: 300; color: rgba(255,255,255,.4); max-width: 44ch; margin: 0 auto 2.5rem; line-height: 1.75; }
+.footer-wrap {
+  position: relative; overflow: hidden;
+  background:
+    linear-gradient(160deg,
+      #06080f 0%,
+      #0c1825 25%,
+      #0a1f1e 50%,
+      #0d0f1e 75%,
+      #060810 100%);
+}
+.footer-wrap::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 65% 70% at 10% 0%, rgba(13,148,136,.22) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 60% at 90% 100%, rgba(109,40,217,.18) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 50% at 50% 50%, rgba(15,27,45,.5) 0%, transparent 70%),
+    radial-gradient(ellipse 35% 45% at 75% 20%, rgba(194,65,12,.13) 0%, transparent 50%);
+}
+#cta {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: clamp(4rem,7vw,6.5rem) var(--gap) clamp(3rem,5vw,4.5rem);
+}
+.cta-eyebrow { font-family: var(--mono); font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; color: var(--teal); margin-bottom: 1.5rem; display: block; }
+.cta-h {
+  font-family: var(--disp);
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  font-weight: 300; color: var(--W); line-height: 1.02; margin-bottom: 1.25rem;
+}
+.cta-h em { font-style: italic; background: linear-gradient(90deg, #5eead4 0%, #a78bfa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.cta-rule { width: 48px; height: 2px; background: linear-gradient(90deg, var(--teal), var(--violet)); margin: 0 auto 1.5rem; border-radius: 2px; }
+.cta-sub { font-size: clamp(.95rem, 1.3vw, 1.1rem); font-weight: 400; color: rgba(255,255,255,.72); max-width: 44ch; margin: 0 auto 2.75rem; line-height: 1.8; }
 .cta-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-.btn-blue-lg { display: inline-flex; align-items: center; gap: .5rem; background: var(--acc2); color: var(--W); padding: 1rem 2.2rem; border-radius: 4px; font-size: .95rem; font-weight: 500; letter-spacing: .02em; }
-.btn-outline-w { display: inline-flex; align-items: center; gap: .5rem; color: rgba(255,255,255,.55); border: 1px solid rgba(255,255,255,.2); padding: 1rem 2.2rem; border-radius: 4px; font-size: .95rem; }
+.btn-blue-lg {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: linear-gradient(135deg, var(--teal) 0%, var(--acc2) 100%);
+  color: var(--W); padding: 1rem 2.2rem; border-radius: 4px;
+  font-size: .95rem; font-weight: 600; letter-spacing: .03em;
+  box-shadow: 0 4px 20px rgba(13,148,136,.35);
+}
+.btn-outline-w {
+  display: inline-flex; align-items: center; gap: .5rem;
+  color: rgba(255,255,255,.75); border: 1px solid rgba(255,255,255,.22);
+  padding: 1rem 2.2rem; border-radius: 4px; font-size: .95rem;
+  backdrop-filter: blur(8px);
+}
 
-.ftr-bar { max-width: var(--max); margin-inline: auto; padding: 1.5rem var(--gap) 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-top: 1px solid rgba(255,255,255,.08); }
-.ftr-bar span, .ftr-bar a { font-family: var(--mono); font-size: .8rem; color: rgba(255,255,255,.22); }
+.ftr-bar {
+  position: relative; z-index: 1;
+  max-width: var(--max); margin-inline: auto;
+  padding: 1.5rem var(--gap) 2rem;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+  border-top: 1px solid rgba(255,255,255,.1);
+}
+.ftr-bar span, .ftr-bar a { font-family: var(--mono); font-size: .8rem; color: rgba(255,255,255,.45); }
 
 /* ── NODE DIAGRAM ── */
-#node-section { background: var(--sky); padding-block: clamp(2rem,3vw,3rem); }
-.node-intro { text-align: center; margin-bottom: 2rem; }
+#node-section { background: var(--sky); padding-block: clamp(2.5rem,4vw,4rem); }
+.node-intro { text-align: center; margin-bottom: 2.5rem; }
 .node-canvas {
   position: relative;
-  width: 100%; max-width: 780px;
+  width: 100%; max-width: 600px;
   margin-inline: auto;
-  aspect-ratio: 1 / .56;
+  aspect-ratio: 1 / 1;
   user-select: none;
 }
 .node-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.node-svg line { stroke: var(--line); stroke-width: 1.2; transition: opacity .22s, stroke .22s; }
-.node-canvas.hovering .node-svg line { opacity: .2; }
-.node-canvas.hovering .node-svg line.lit { opacity: 1; stroke: var(--acc2); stroke-width: 1.8; }
+/* star outline path */
+.node-svg .star-path {
+  fill: none; stroke: var(--line); stroke-width: 1;
+  transition: opacity .22s;
+}
+/* spoke lines */
+.node-svg line { stroke: var(--line); stroke-width: 1; stroke-dasharray: 4 4; transition: opacity .22s, stroke .22s; }
+.node-canvas.hovering .node-svg line { opacity: .15; }
+.node-canvas.hovering .node-svg line.lit { opacity: 1; stroke: var(--acc2); stroke-width: 1.5; stroke-dasharray: none; }
 
 /* hub */
 .node-hub {
   position: absolute; transform: translate(-50%,-50%);
   left: 50%; top: 50%;
   background: var(--navy); color: var(--W);
-  font-family: var(--disp); font-size: .95rem; font-weight: 400;
-  padding: .6rem 1.2rem; border-radius: 6px;
+  font-family: var(--disp); font-size: .9rem; font-weight: 400;
+  padding: .55rem 1.1rem; border-radius: 5px;
   white-space: nowrap; z-index: 2;
-  box-shadow: 0 4px 20px rgba(15,27,45,.22);
+  box-shadow: 0 4px 24px rgba(15,27,45,.28);
 }
 
 /* nodes */
 .node {
-  position: absolute; transform: translate(-50%,-50%) scale(1);
-  font-family: var(--sans); font-size: .875rem; font-weight: 500;
-  color: var(--navy); cursor: default;
-  transition: opacity .2s, color .2s, transform .2s, font-size .2s;
-  z-index: 3; white-space: nowrap;
+  position: absolute; transform: translate(-50%,-50%);
+  display: flex; flex-direction: column; align-items: center; gap: .25rem;
+  cursor: default; z-index: 3; text-align: center;
+  transition: opacity .2s, transform .2s;
 }
-.node-canvas.hovering .node { opacity: .22; color: var(--mid); }
-.node-canvas.hovering .node.nearby { opacity: .5; }
+.node-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--acc2); border: 2px solid var(--W);
+  box-shadow: 0 0 0 1px var(--acc2);
+  transition: transform .2s, background .2s;
+  flex-shrink: 0;
+}
+/* tip nodes (cardinal — outermost) */
+.node.tip-node .node-dot { background: var(--navy); box-shadow: 0 0 0 1px var(--navy); }
+.node-label {
+  font-family: var(--sans); font-size: .82rem; font-weight: 600;
+  color: var(--navy); line-height: 1.2; white-space: nowrap;
+}
+.node-sub {
+  font-family: var(--mono); font-size: .7rem; color: var(--mid);
+  line-height: 1.2; white-space: nowrap;
+}
+.node-canvas.hovering .node { opacity: .2; }
+.node-canvas.hovering .node.nearby { opacity: .55; }
 .node-canvas.hovering .node.active {
-  opacity: 1; color: var(--navy);
-  transform: translate(-50%,-50%) scale(1.18);
-  font-size: 1rem;
+  opacity: 1;
+  transform: translate(-50%,-50%) scale(1.12);
 }
+.node-canvas.hovering .node.active .node-dot { transform: scale(1.5); background: var(--acc2); }
 
 /* tooltip */
 .node-tip {
   position: absolute;
   background: var(--navy); color: var(--W);
   border-radius: 8px; padding: .65rem .9rem;
-  width: 190px; pointer-events: none;
+  width: 180px; pointer-events: none;
   opacity: 0; transition: opacity .15s;
   z-index: 10;
   box-shadow: 0 8px 24px rgba(15,27,45,.28);
 }
 .node-tip.show { opacity: 1; }
 .node-tip-title { font-family: var(--disp); font-size: 1rem; font-weight: 400; color: var(--W); margin-bottom: .2rem; }
-.node-tip-desc  { font-size: .875rem; color: rgba(255,255,255,.52); line-height: 1.55; }
+.node-tip-desc  { font-size: .82rem; color: rgba(255,255,255,.78); line-height: 1.5; }
 
 /* floater */
 .floaters { position: fixed; bottom: 1.75rem; right: 1.5rem; z-index: 80; }
@@ -358,6 +472,7 @@ nav.up .nav-links a { color: var(--mid); }
 <!-- ══ HERO ══ -->
 <section id="hero">
   <div class="hero-in">
+    <div class="hero-accent-line"></div>
     <h1 class="hero-h">Better together<br>in <em>hospitality.</em></h1>
     <p class="hero-sub">One platform for hotels, DMCs, and travel agents: bookings, packages, partner operations, and guest marketing, all unified.</p>
     <div class="hero-row">
@@ -377,46 +492,66 @@ nav.up .nav-links a { color: var(--mid); }
 <section id="node-section">
   <div class="wrap">
     <div class="node-intro">
-      <span class="eyebrow" style="justify-content:center;display:block">Who it's built for</span>
+      <span class="eyebrow" style="justify-content:center;display:block;color:var(--acc2)">Who it's built for</span>
       <h2 class="sec-h" style="font-size:clamp(2rem,3.5vw,3rem)">One platform. Every stakeholder<br>in your <em>hospitality network.</em></h2>
     </div>
 
     <div class="node-canvas" id="nodeCanvas">
-      <!-- SVG lines drawn by JS -->
       <svg class="node-svg" id="nodeSvg"></svg>
-
       <div class="node-hub">B2B Stays</div>
 
-      <!-- 9 nodes evenly on a horizontal oval, hub at 50%,50% -->
-      <div class="node" data-x="50" data-y="12"
+      <!-- 4 PRIMARY tip nodes: cardinal points (outermost) -->
+      <div class="node tip-node" data-x="50" data-y="4"
            data-title="Independent Hotels"
-           data-desc="Manage agent bookings, commissions, and packages from a single portal.">Independent Hotels</div>
-      <div class="node" data-x="74" data-y="18"
-           data-title="Hotel Chains"
-           data-desc="Multi-property visibility with unified agent channel mapping and reporting.">Hotel Chains</div>
-      <div class="node" data-x="91" data-y="37"
-           data-title="DMCs"
-           data-desc="Build multi-day packages, manage itineraries, and coordinate vendor approvals.">DMCs</div>
-      <div class="node" data-x="91" data-y="63"
+           data-desc="Manage agent bookings, commissions, and packages from a single portal.">
+        <div class="node-dot"></div>
+        <div class="node-label">Independent Hotels</div>
+      </div>
+      <div class="node tip-node" data-x="96" data-y="50"
            data-title="Travel Agents"
-           data-desc="Book instantly, request group quotes, and track commissions in real time.">Travel Agents</div>
-      <div class="node" data-x="74" data-y="82"
-           data-title="Corporate Accounts"
-           data-desc="City ledger running balances, charge posting, and invoice generation.">Corporate Accounts</div>
-      <div class="node" data-x="50" data-y="88"
-           data-title="Fleet Operators"
-           data-desc="Register vehicles and drivers, manage availability, and receive cab bookings.">Fleet Operators</div>
-      <div class="node" data-x="26" data-y="82"
-           data-title="Vendors &amp; Suppliers"
-           data-desc="Receive approval requests, confirm services, and coordinate per booking day.">Vendors &amp; Suppliers</div>
-      <div class="node" data-x="9" data-y="63"
-           data-title="MICE &amp; Events"
-           data-desc="Handle 10+ room group quotes, negotiate, and send Razorpay payment links.">MICE &amp; Events</div>
-      <div class="node" data-x="9" data-y="37"
-           data-title="Marketing Partners"
-           data-desc="Connected Facebook, Instagram, and WhatsApp Business for outbound campaigns.">Marketing Partners</div>
+           data-desc="Book instantly, request group quotes, and track commissions in real time.">
+        <div class="node-dot"></div>
+        <div class="node-label">Travel Agents</div>
+      </div>
+      <div class="node tip-node" data-x="50" data-y="96"
+           data-title="Hotel Chains"
+           data-desc="Multi-property visibility with unified agent channel mapping and reporting.">
+        <div class="node-dot"></div>
+        <div class="node-label">Hotel Chains</div>
+      </div>
+      <div class="node tip-node" data-x="4" data-y="50"
+           data-title="DMCs"
+           data-desc="Build multi-day packages, manage itineraries, and coordinate vendor approvals.">
+        <div class="node-dot"></div>
+        <div class="node-label">DMCs</div>
+      </div>
 
-      <!-- Tooltip -->
+      <!-- 4 SECONDARY recess nodes: diagonal points (inward) -->
+      <div class="node" data-x="73" data-y="27"
+           data-title="Corporate Accounts"
+           data-desc="City ledger running balances, charge posting, and invoice generation.">
+        <div class="node-dot"></div>
+        <div class="node-label">Corporate Accounts</div>
+      </div>
+      <div class="node" data-x="73" data-y="73"
+           data-title="Fleet Operators"
+           data-desc="Register vehicles and drivers, manage availability, and receive cab bookings.">
+        <div class="node-dot"></div>
+        <div class="node-label">Fleet Operators</div>
+      </div>
+      <div class="node" data-x="27" data-y="73"
+           data-title="Vendors &amp; Suppliers"
+           data-desc="Receive approval requests, confirm services, and coordinate per booking day.">
+        <div class="node-dot"></div>
+        <div class="node-label">Vendors &amp; Suppliers</div>
+      </div>
+      <div class="node" data-x="27" data-y="27"
+           data-title="MICE &amp; Events"
+           data-desc="Handle 10+ room group quotes, negotiate, and send Razorpay payment links.">
+        <div class="node-dot"></div>
+        <div class="node-label">MICE &amp; Events</div>
+      </div>
+
       <div class="node-tip" id="nodeTip">
         <div class="node-tip-title" id="nodeTipTitle"></div>
         <div class="node-tip-desc"  id="nodeTipDesc"></div>
@@ -428,14 +563,14 @@ nav.up .nav-links a { color: var(--mid); }
 <!-- ══ 01 · OVERVIEW ══ -->
 <section id="overview" class="sec bg-navy">
   <div class="wrap">
-    <span class="eyebrow eyebrow-w">01 · The Overview</span>
+    <span class="eyebrow" style="color:#5eead4">01 · The Overview</span>
     <h2 class="sec-h sec-h-w">One connected<br><em>workspace.</em></h2>
     <p class="sec-lead sec-lead-w">Everything your operation needs: bookings, commissions, packages, transport, partner payments, and marketing, running from a single portal.</p>
     <div class="ov-pillars">
-      <div class="ov-pillar"><span class="ov-pillar-n">Bookings</span><span class="ov-pillar-d">Agent reservations, group quotes, and commission settlement, all in one list.</span></div>
-      <div class="ov-pillar"><span class="ov-pillar-n">Finances</span><span class="ov-pillar-d">City ledger, payment links, and per-agent commission tracking with audit trail.</span></div>
-      <div class="ov-pillar"><span class="ov-pillar-n">Packages</span><span class="ov-pillar-d">Multi-day itineraries, tiered pricing, and agent quote workflows.</span></div>
-      <div class="ov-pillar"><span class="ov-pillar-n">Marketing</span><span class="ov-pillar-d">WhatsApp, email campaigns, AI-scheduled social content, and reputation.</span></div>
+      <div class="ov-pillar"><span class="ov-pillar-n" style="color:#7EC8E3">Bookings</span><span class="ov-pillar-d">Agent reservations, group quotes, and commission settlement, all in one list.</span></div>
+      <div class="ov-pillar"><span class="ov-pillar-n" style="color:#5eead4">Finances</span><span class="ov-pillar-d">City ledger, payment links, and per-agent commission tracking with audit trail.</span></div>
+      <div class="ov-pillar"><span class="ov-pillar-n" style="color:#c4b5fd">Packages</span><span class="ov-pillar-d">Multi-day itineraries, tiered pricing, and agent quote workflows.</span></div>
+      <div class="ov-pillar"><span class="ov-pillar-n" style="color:#fca5a5">Marketing</span><span class="ov-pillar-d">WhatsApp, email campaigns, AI-scheduled social content, and reputation.</span></div>
     </div>
   </div>
 </section>
@@ -443,7 +578,7 @@ nav.up .nav-links a { color: var(--mid); }
 <!-- ══ 02 · BOOKINGS & OPERATIONS ══ -->
 <section id="bookings" class="sec bg-ivory">
   <div class="wrap">
-    <span class="eyebrow">02 · Bookings &amp; Operations</span>
+    <span class="eyebrow" style="color:var(--acc2)">02 · Bookings &amp; Operations</span>
     <h2 class="sec-h">From booking<br>to <em>settlement.</em></h2>
     <p class="sec-lead">Complete control over the booking workflow: search and filter every booking, manage group quotes, send payment links, and settle commissions.</p>
 
@@ -507,7 +642,7 @@ nav.up .nav-links a { color: var(--mid); }
   <div class="wrap">
     <div class="two">
       <div>
-        <span class="eyebrow eyebrow-w">03 · Package Management</span>
+        <span class="eyebrow" style="color:#c4b5fd">03 · Package Management</span>
         <h2 class="sec-h sec-h-w">Create experiences.<br>Manage <em>every detail.</em></h2>
         <p class="sec-lead sec-lead-w">Multi-day packages with itinerary, gallery, and tiered pricing. Agents book instantly or submit quote requests, with commission tracked throughout.</p>
       </div>
@@ -542,7 +677,7 @@ nav.up .nav-links a { color: var(--mid); }
 <!-- ══ 04 · PARTNER OPERATIONS + TRANSPORT ══ -->
 <section id="partners" class="sec bg-sky">
   <div class="wrap">
-    <span class="eyebrow">04 · Partner Operations &amp; Transport</span>
+    <span class="eyebrow" style="color:var(--teal)">04 · Partner Operations &amp; Transport</span>
     <h2 class="sec-h">Accounts, fleets,<br>and <em>everything in between.</em></h2>
     <p class="sec-lead">Running balances for corporate and travel agent accounts. Hour-by-hour fleet visibility. City ledger, cab booking, and vendor coordination, all connected.</p>
 
@@ -582,7 +717,7 @@ nav.up .nav-links a { color: var(--mid); }
 <!-- ══ 05 · MARKETING ══ -->
 <section id="marketing" class="sec bg-white">
   <div class="wrap">
-    <span class="eyebrow">05 · Guest Engagement &amp; Marketing</span>
+    <span class="eyebrow" style="color:var(--rose)">05 · Guest Engagement &amp; Marketing</span>
     <h2 class="sec-h">Every conversation<br>becomes an <em>opportunity.</em></h2>
     <p class="sec-lead">WhatsApp campaigns, email outreach, AI-scheduled social content, and guest review management, from one place.</p>
 
@@ -636,7 +771,7 @@ nav.up .nav-links a { color: var(--mid); }
 <!-- ══ 06 · ALSO INCLUDED ══ -->
 <section id="control" class="sec-sm bg-ivory2" style="border-top:1px solid var(--line)">
   <div class="wrap">
-    <span class="eyebrow" style="margin-bottom:1.5rem">06 · Also included</span>
+    <span class="eyebrow" style="margin-bottom:1.5rem;color:var(--violet)">06 · Also included</span>
     <div class="also-grid">
       <div><div class="also-label">Content</div><div class="also-tags"><span>Approval Queue</span><span>Prompt Library</span><span>Image Library</span><span>AI Generation</span></div></div>
       <div><div class="also-label">Vendor &amp; Alerts</div><div class="also-tags"><span>Vendor Master</span><span>Approval Requests</span><span>Staff Alerts</span><span>Audit Trail</span></div></div>
@@ -650,12 +785,13 @@ nav.up .nav-links a { color: var(--mid); }
 <div class="footer-wrap">
   <section id="cta">
     <div style="max-width:var(--max);margin-inline:auto;padding-inline:var(--gap)">
-      <span class="eyebrow eyebrow-w" style="display:block;text-align:center">Your Hospitality Network Starts Here</span>
+      <span class="cta-eyebrow">Your hospitality network starts here</span>
       <h2 class="cta-h">Better together<br>in <em>hospitality.</em></h2>
+      <div class="cta-rule"></div>
       <p class="cta-sub">Join hotels, DMCs, and travel agents managing B2B operations smarter, on one platform.</p>
       <div class="cta-btns">
         <a href="https://www.eglobe-solutions.com/contact.html" target="_blank" rel="noopener" class="btn-blue-lg">Book a free demo</a>
-        <a href="https://www.eglobesolutions.com/" target="_blank" rel="noopener" class="btn-outline-w">Learn about eGlobe</a>
+        <a href="https://www.eglobe-solutions.com/" target="_blank" rel="noopener" class="btn-outline-w">Learn about eGlobe</a>
       </div>
     </div>
   </section>
@@ -667,7 +803,7 @@ nav.up .nav-links a { color: var(--mid); }
 
 <!-- WhatsApp floater -->
 <div class="floaters">
-  <a href="https://wa.me/919999999999" class="f-wa" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <a href="https://wa.me/919818880480" class="f-wa" target="_blank" rel="noopener" aria-label="WhatsApp">
     <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M1.5 20.5l1.3-4.8A9 9 0 1 1 6.8 19.3L1.5 20.5z" fill="white"/><path d="M8 6.8c.3 1.4 1.1 2.6 2.3 3.5.9.7 2 1 3.1.8l1-1c.2-.2.2-.5 0-.6L13.2 8.6c-.2-.2-.5-.2-.6 0l-.8.8C11.2 8.5 10.5 7.8 10.1 7l.8-.8c.2-.2.2-.5 0-.6L9 4.2c-.2-.2-.5-.2-.6 0L7.2 5.3c-.3.4-.3.9-.1 1.3l.1.2z" fill="#25D366"/></svg>
   </a>
 </div>
@@ -685,87 +821,95 @@ addEventListener('scroll', () => nav.classList.toggle('up', scrollY > 30), {pass
   const tipD   = document.getElementById('nodeTipDesc');
   const nodes  = Array.from(canvas.querySelectorAll('.node'));
 
-  const HX = 50, HY = 50;
+  const NS = 'http://www.w3.org/2000/svg';
 
-  // draw SVG lines hub → each node
-  function buildLines() {
+  function build() {
     svg.innerHTML = '';
     const W = canvas.offsetWidth, H = canvas.offsetHeight;
+    const cx = W / 2, cy = H / 2;
+
+    /* ── draw 4-pointed star outline ── */
+    // outer tip radius (cardinal) and inner recess radius (diagonal)
+    const ro = W * 0.46;   // how far the 4 tips reach
+    const ri = W * 0.305;  // how far the 4 diagonal recesses sit
+    const pts = [];
+    for (let i = 0; i < 8; i++) {
+      const angle = (i * Math.PI / 4) - Math.PI / 2; // start top
+      const r = i % 2 === 0 ? ro : ri;
+      pts.push([ cx + r * Math.cos(angle), cy + r * Math.sin(angle) ]);
+    }
+    const d = pts.map((p, i) => (i === 0 ? `M${p[0]},${p[1]}` : `L${p[0]},${p[1]}`)).join(' ') + ' Z';
+    const star = document.createElementNS(NS, 'path');
+    star.setAttribute('d', d);
+    star.setAttribute('class', 'star-path');
+    svg.appendChild(star);
+
+    /* ── draw spoke lines hub → each node ── */
     nodes.forEach((n, i) => {
       const nx = parseFloat(n.dataset.x) / 100 * W;
       const ny = parseFloat(n.dataset.y) / 100 * H;
-      const hx = HX / 100 * W;
-      const hy = HY / 100 * H;
-      const line = document.createElementNS('http://www.w3.org/2000/svg','line');
-      line.setAttribute('x1', hx); line.setAttribute('y1', hy);
+      const line = document.createElementNS(NS, 'line');
+      line.setAttribute('x1', cx); line.setAttribute('y1', cy);
       line.setAttribute('x2', nx); line.setAttribute('y2', ny);
       line.dataset.idx = i;
       svg.appendChild(line);
     });
-    // position nodes
+
+    /* position node elements */
     nodes.forEach(n => {
       n.style.left = n.dataset.x + '%';
       n.style.top  = n.dataset.y + '%';
     });
   }
 
-  buildLines();
-  window.addEventListener('resize', buildLines);
+  build();
+  window.addEventListener('resize', build);
 
-  // find 2 nearest nodes to a given node by angle proximity
   function nearbyIndices(idx) {
     const ax = parseFloat(nodes[idx].dataset.x);
     const ay = parseFloat(nodes[idx].dataset.y);
     return nodes
-      .map((n,i) => {
-        if (i === idx) return {i, d: Infinity};
+      .map((n, i) => {
+        if (i === idx) return { i, d: Infinity };
         const dx = parseFloat(n.dataset.x) - ax;
         const dy = parseFloat(n.dataset.y) - ay;
-        return {i, d: Math.sqrt(dx*dx + dy*dy)};
+        return { i, d: Math.sqrt(dx*dx + dy*dy) };
       })
-      .sort((a,b) => a.d - b.d)
-      .slice(0,2)
+      .sort((a, b) => a.d - b.d)
+      .slice(0, 2)
       .map(x => x.i);
   }
 
   nodes.forEach((node, idx) => {
     node.addEventListener('mouseenter', () => {
       canvas.classList.add('hovering');
-      nodes.forEach(n => { n.classList.remove('active','nearby'); });
+      nodes.forEach(n => n.classList.remove('active', 'nearby'));
       node.classList.add('active');
-      const nb = nearbyIndices(idx);
-      nb.forEach(i => nodes[i].classList.add('nearby'));
+      nearbyIndices(idx).forEach(i => nodes[i].classList.add('nearby'));
 
-      // light the connected line
       svg.querySelectorAll('line').forEach(l => l.classList.remove('lit'));
-      svg.querySelector(`line[data-idx="${idx}"]`).classList.add('lit');
+      const lit = svg.querySelector(`line[data-idx="${idx}"]`);
+      if (lit) lit.classList.add('lit');
 
-      // tooltip
       tipT.textContent = node.dataset.title;
       tipD.innerHTML   = node.dataset.desc;
+
       const W = canvas.offsetWidth, H = canvas.offsetHeight;
       const nx = parseFloat(node.dataset.x) / 100 * W;
       const ny = parseFloat(node.dataset.y) / 100 * H;
-      const onRight = nx > W * 0.5;
-      if (ny < H * 0.25) {
-        // top arc — show below
-        tip.style.left = nx + 'px';
-        tip.style.top  = (ny + 18) + 'px';
+      const TW = 180, gap = 14;
+
+      if (ny < H * 0.3) {
+        tip.style.left = nx + 'px'; tip.style.top = (ny + gap) + 'px';
         tip.style.transform = 'translate(-50%, 0)';
-      } else if (ny > H * 0.75) {
-        // bottom arc — show above
-        tip.style.left = nx + 'px';
-        tip.style.top  = (ny - 8) + 'px';
+      } else if (ny > H * 0.7) {
+        tip.style.left = nx + 'px'; tip.style.top = (ny - gap) + 'px';
         tip.style.transform = 'translate(-50%, -100%)';
-      } else if (onRight) {
-        // right side — show to the left
-        tip.style.left = (nx - 10) + 'px';
-        tip.style.top  = ny + 'px';
+      } else if (nx > W * 0.5) {
+        tip.style.left = (nx - gap) + 'px'; tip.style.top = ny + 'px';
         tip.style.transform = 'translate(-100%, -50%)';
       } else {
-        // left side — show to the right
-        tip.style.left = (nx + 10) + 'px';
-        tip.style.top  = ny + 'px';
+        tip.style.left = (nx + gap) + 'px'; tip.style.top = ny + 'px';
         tip.style.transform = 'translate(0, -50%)';
       }
       tip.classList.add('show');
@@ -773,7 +917,7 @@ addEventListener('scroll', () => nav.classList.toggle('up', scrollY > 30), {pass
 
     node.addEventListener('mouseleave', () => {
       canvas.classList.remove('hovering');
-      nodes.forEach(n => { n.classList.remove('active','nearby'); });
+      nodes.forEach(n => n.classList.remove('active', 'nearby'));
       svg.querySelectorAll('line').forEach(l => l.classList.remove('lit'));
       tip.classList.remove('show');
     });
