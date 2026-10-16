@@ -24,12 +24,12 @@
   --acc2:   #3182CE;
 
   /* accent palette */
-  --teal:   #0D9488;   /* teal — finance / ledger */
-  --amber:  #B45309;   /* amber — commissions / alerts */
-  --violet: #6D28D9;   /* violet — packages / AI */
-  --rose:   #BE185D;   /* rose — marketing / campaigns */
-  --sage:   #2D6A4F;   /* sage — confirmed / fleet */
-  --coral:  #C2410C;   /* coral — cta accent */
+  --teal:   #0D9488;
+  --amber:  #B45309;
+  --violet: #6D28D9;
+  --rose:   #BE185D;
+  --sage:   #2D6A4F;
+  --coral:  #C2410C;
 
   --disp:   'Fraunces', Georgia, serif;
   --sans:   'Inter', system-ui, sans-serif;
@@ -103,7 +103,7 @@ nav.up .nav-cta:hover { background: var(--blue2) !important; }
 /* ── HERO ── */
 #hero {
   position: relative; overflow: hidden;
-  padding-block: clamp(5.5rem, 12vw, 8rem) clamp(4rem, 6vw, 5.5rem);
+  padding-block: clamp(4rem, 7vw, 5.5rem) clamp(2.5rem, 4vw, 3.5rem);
   background:
     linear-gradient(145deg,
       #080f1a 0%,
@@ -134,19 +134,21 @@ nav.up .nav-cta:hover { background: var(--blue2) !important; }
   padding-inline: var(--gap);
 }
 .hero-label { font-family: var(--mono); font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--acc2); opacity: .9; margin-bottom: 1.4rem; }
+.hero-badge { display: inline-flex; align-items: center; gap: .5rem; font-family: var(--mono); font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(94,234,212,.9); background: rgba(94,234,212,.08); border: 1px solid rgba(94,234,212,.2); border-radius: 3px; padding: .3rem .8rem; margin-bottom: 1.4rem; }
+.hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #5eead4; box-shadow: 0 0 6px #5eead4; flex-shrink: 0; }
 .hero-h {
   font-family: var(--disp);
-  font-size: clamp(2.6rem, 5.5vw, 4.8rem);
-  font-weight: 300; line-height: 1.05; color: var(--W);
-  margin-bottom: 1.2rem; max-width: 18ch;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-weight: 300; line-height: 1.08; color: var(--W);
+  margin-bottom: 1rem; max-width: 22ch;
 }
 .hero-h em { font-style: italic; background: linear-gradient(100deg, #5eead4 0%, #a78bfa 60%, #f9a8d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .hero-accent-line { width: 56px; height: 3px; background: linear-gradient(90deg, #5eead4, #a78bfa); border-radius: 2px; margin-bottom: 1.6rem; }
-.hero-sub { font-size: clamp(1rem, 1.4vw, 1.1rem); font-weight: 400; color: rgba(255,255,255,.85); max-width: 46ch; line-height: 1.8; margin-bottom: 1.8rem; }
+.hero-sub { font-size: clamp(.9rem, 1.2vw, 1rem); font-weight: 400; color: rgba(255,255,255,.85); max-width: 52ch; line-height: 1.75; margin-bottom: 1.4rem; }
 .hero-row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
 .btn-blue { display: inline-flex; align-items: center; gap: .4rem; background: var(--acc2); color: var(--W); padding: .85rem 1.8rem; border-radius: 4px; font-size: .88rem; font-weight: 500; letter-spacing: .02em; }
 .btn-ghost { display: inline-flex; align-items: center; gap: .4rem; color: rgba(255,255,255,.7); border: 1px solid rgba(255,255,255,.28); padding: .85rem 1.8rem; border-radius: 4px; font-size: .88rem; }
-.hero-who { display: flex; gap: 0; flex-wrap: wrap; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,.1); padding-top: 1rem; }
+.hero-who { display: flex; gap: 0; flex-wrap: wrap; margin-top: 1.4rem; border-top: 1px solid rgba(255,255,255,.1); padding-top: .75rem; }
 .hero-who-item { font-family: var(--mono); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.55); padding: .2rem 1.5rem .2rem 0; }
 
 /* ── SHARED ── */
@@ -416,7 +418,7 @@ nav.up .nav-cta:hover { background: var(--blue2) !important; }
   transition: transform .2s, background .2s;
   flex-shrink: 0;
 }
-/* tip nodes (cardinal — outermost) */
+/* tip nodes (cardinal, outermost) */
 .node.tip-node .node-dot { background: var(--navy); box-shadow: 0 0 0 1px var(--navy); }
 .node-label {
   font-family: var(--sans); font-size: .82rem; font-weight: 600;
@@ -472,18 +474,23 @@ nav.up .nav-cta:hover { background: var(--blue2) !important; }
 <!-- ══ HERO ══ -->
 <section id="hero">
   <div class="hero-in">
+    <div class="hero-badge">B2B Hospitality Management Platform</div>
     <div class="hero-accent-line"></div>
-    <h1 class="hero-h">Better together<br>in <em>hospitality.</em></h1>
-    <p class="hero-sub">One platform for hotels, DMCs, and travel agents: bookings, packages, partner operations, and guest marketing, all unified.</p>
+    <h1 class="hero-h">Every B2B relationship<br>in hospitality,<br><em>finally connected.</em></h1>
+    <p class="hero-sub">B2B Stays is the operations platform that connects hotels, agents, DMCs, corporates, vendors, and more: bookings, commissions, packages, transport, and marketing, all in one place.</p>
     <div class="hero-row">
       <a href="https://www.eglobe-solutions.com/contact.html" target="_blank" rel="noopener" class="btn-blue">Book a free demo</a>
-      <a href="#overview" class="btn-ghost">Explore platform</a>
+      <a href="#overview" class="btn-ghost">See all modules</a>
     </div>
     <div class="hero-who">
-      <span class="hero-who-item">Independent Hotels</span>
-      <span class="hero-who-item">Hotel Chains</span>
-      <span class="hero-who-item">DMCs</span>
+      <span class="hero-who-item">Hotels</span>
       <span class="hero-who-item">Travel Agents</span>
+      <span class="hero-who-item">DMCs</span>
+      <span class="hero-who-item">Corporates</span>
+      <span class="hero-who-item">Fleet Operators</span>
+      <span class="hero-who-item">Vendors</span>
+      <span class="hero-who-item">MICE</span>
+      <span class="hero-who-item">Hotel Chains</span>
     </div>
   </div>
 </section>
