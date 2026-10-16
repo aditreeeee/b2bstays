@@ -149,7 +149,8 @@ nav.up .nav-cta:hover { background: var(--blue2) !important; }
 .btn-blue { display: inline-flex; align-items: center; gap: .4rem; background: var(--acc2); color: var(--W); padding: .85rem 1.8rem; border-radius: 4px; font-size: .88rem; font-weight: 500; letter-spacing: .02em; }
 .btn-ghost { display: inline-flex; align-items: center; gap: .4rem; color: rgba(255,255,255,.7); border: 1px solid rgba(255,255,255,.28); padding: .85rem 1.8rem; border-radius: 4px; font-size: .88rem; }
 .hero-who { display: flex; gap: 0; flex-wrap: wrap; margin-top: 1.4rem; border-top: 1px solid rgba(255,255,255,.1); padding-top: .75rem; }
-.hero-who-item { font-family: var(--mono); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.55); padding: .2rem 1.5rem .2rem 0; }
+.hero-who-item { font-family: var(--mono); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.55); padding: .2rem 0; }
+.hero-who-item + .hero-who-item::before { content: '·'; margin-inline: .75rem; opacity: .4; }
 
 /* ── SHARED ── */
 .wrap { max-width: var(--max); margin-inline: auto; padding-inline: var(--gap); }
