@@ -620,103 +620,105 @@ nav:not(.up) .nav-links a.active { color: #fff !important; opacity: 1; }
 [data-title] { cursor: default; }
 
 /* ── NODE DIAGRAM ── */
-#node-section { background: var(--sky); padding-block: clamp(2.5rem,4vw,4rem); }
-.node-intro { text-align: center; margin-bottom: 2.5rem; }
+#node-section {
+  background: linear-gradient(160deg, var(--sky) 0%, var(--W) 55%, var(--sky2) 100%);
+  padding-block: clamp(3rem,5vw,5rem);
+}
+.node-intro { text-align: center; margin-bottom: 3rem; }
+.node-intro .sec-h { font-size: clamp(1.9rem,3.2vw,2.8rem); }
+.node-intro p { font-size: .95rem; color: var(--mid); margin-top: .6rem; max-width: 46ch; margin-inline: auto; line-height: 1.75; }
 .node-canvas {
   position: relative;
-  width: 100%; max-width: 600px;
+  width: 100%; max-width: 860px;
   margin-inline: auto;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 2.8 / 1;
   user-select: none;
 }
 .node-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-/* star outline path */
-.node-svg .star-path {
-  fill: none; stroke: var(--line); stroke-width: 1;
-  transition: opacity .22s;
-}
+.node-svg .star-path { fill: none; stroke: none; }
 /* spoke lines */
-.node-svg line { stroke: var(--line); stroke-width: 1; stroke-dasharray: 4 4; transition: opacity .22s, stroke .22s; }
-.node-canvas.hovering .node-svg line { opacity: .15; }
-.node-canvas.hovering .node-svg line.lit { opacity: 1; stroke: var(--acc2); stroke-width: 1.5; stroke-dasharray: none; }
+.node-svg line {
+  stroke: var(--line); stroke-width: 1.5; stroke-dasharray: 5 5;
+  transition: opacity .35s ease, stroke .35s ease, stroke-width .35s ease;
+}
+.node-canvas.hovering .node-svg line { opacity: .08; }
+.node-canvas.hovering .node-svg line.lit { opacity: 1; stroke: var(--acc2); stroke-width: 2; stroke-dasharray: none; }
 
 /* hub */
 .node-hub {
   position: absolute; transform: translate(-50%,-50%);
   left: 50%; top: 50%;
   background: var(--navy); color: var(--W);
-  font-family: var(--disp); font-size: .9rem; font-weight: 400;
-  padding: .55rem 1.1rem; border-radius: 5px;
+  font-family: var(--disp); font-size: .95rem; font-weight: 400; letter-spacing: .01em;
+  padding: .6rem 1.35rem; border-radius: 999px;
   white-space: nowrap; z-index: 4; cursor: default;
-  box-shadow: 0 4px 24px rgba(15,27,45,.28);
-  transition: box-shadow .2s;
+  box-shadow: 0 0 0 6px rgba(30,58,95,.08), 0 6px 28px rgba(15,27,45,.22);
+  border: 1px solid rgba(255,255,255,.1);
+  transition: box-shadow .2s, transform .2s;
 }
-.node-hub:hover { box-shadow: 0 6px 32px rgba(15,27,45,.42); }
+.node-hub:hover { box-shadow: 0 0 0 10px rgba(30,58,95,.1), 0 8px 36px rgba(15,27,45,.32); transform: translate(-50%,-50%) scale(1.04); }
 .hub-tip {
-  position: absolute; bottom: calc(100% + 10px); left: 50%;
-  transform: translateX(-50%);
+  position: absolute; bottom: calc(100% + 12px); left: 50%;
   background: var(--navy); color: var(--W);
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 8px; padding: .7rem 1rem;
-  width: 200px; white-space: normal;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 8px; padding: .75rem 1rem;
+  width: 210px; white-space: normal;
   opacity: 0; pointer-events: none;
   transition: opacity .18s, transform .18s;
-  transform: translateX(-50%) translateY(4px);
-  box-shadow: 0 8px 28px rgba(15,27,45,.35);
+  transform: translateX(-50%) translateY(6px);
+  box-shadow: 0 8px 28px rgba(15,27,45,.32);
   z-index: 10;
 }
-.node-hub:hover .hub-tip {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
+.node-hub:hover .hub-tip { opacity: 1; transform: translateX(-50%) translateY(0); }
 .hub-tip-title { font-family: var(--disp); font-size: .95rem; font-weight: 500; color: #5eead4; margin-bottom: .3rem; }
-.hub-tip-desc  { font-size: .8rem; color: rgba(255,255,255,.78); line-height: 1.55; }
+.hub-tip-desc  { font-size: .8rem; color: rgba(255,255,255,.75); line-height: 1.55; }
 
 /* nodes */
 .node {
   position: absolute; transform: translate(-50%,-50%);
-  display: flex; flex-direction: column; align-items: center; gap: .25rem;
-  cursor: default; z-index: 3; text-align: center;
-  transition: opacity .2s, transform .2s;
+  display: flex; flex-direction: column; align-items: center; gap: 0;
+  cursor: default; z-index: 3;
+  opacity: 1;
+  transition: opacity .35s ease, transform .35s ease;
 }
-.node-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--acc2); border: 2px solid var(--W);
-  box-shadow: 0 0 0 1px var(--acc2);
-  transition: transform .2s, background .2s;
-  flex-shrink: 0;
+.node-chip {
+  font-family: var(--sans); font-size: .78rem; font-weight: 500;
+  color: var(--navy); background: var(--W);
+  border: 1px solid var(--line);
+  padding: .28rem .7rem; border-radius: 999px;
+  white-space: nowrap; line-height: 1.4;
+  box-shadow: 0 2px 8px rgba(15,27,45,.08);
+  transition: background .35s ease, border-color .35s ease, box-shadow .35s ease, color .35s ease;
 }
-/* tip nodes (cardinal, outermost) */
-.node.tip-node .node-dot { background: var(--navy); box-shadow: 0 0 0 1px var(--navy); }
-.node-label {
-  font-family: var(--sans); font-size: .82rem; font-weight: 600;
-  color: var(--navy); line-height: 1.2; white-space: nowrap;
-}
-.node-sub {
-  font-family: var(--mono); font-size: .7rem; color: var(--mid);
-  line-height: 1.2; white-space: nowrap;
-}
-.node-canvas.hovering .node { opacity: .2; }
+/* keep old .node-dot/.node-label for JS compat but hide them */
+.node-dot { display: none; }
+.node-label { display: none; }
+.node-canvas.hovering .node { opacity: .15; }
 .node-canvas.hovering .node.nearby { opacity: .55; }
 .node-canvas.hovering .node.active {
   opacity: 1;
-  transform: translate(-50%,-50%) scale(1.12);
+  transform: translate(-50%,-50%) scale(1.08);
 }
-.node-canvas.hovering .node.active .node-dot { transform: scale(1.5); background: var(--acc2); }
+.node-canvas.hovering .node.active .node-chip {
+  background: var(--navy); color: var(--W);
+  border-color: var(--navy);
+  box-shadow: 0 4px 16px rgba(15,27,45,.22);
+}
 
 /* tooltip */
 .node-tip {
   position: absolute;
   background: var(--navy); color: var(--W);
-  border-radius: 8px; padding: .65rem .9rem;
-  width: 180px; pointer-events: none;
+  border-radius: 8px; padding: .7rem .95rem;
+  width: 188px; pointer-events: none;
   opacity: 0; transition: opacity .15s;
   z-index: 10;
   box-shadow: 0 8px 24px rgba(15,27,45,.28);
+  border: 1px solid rgba(255,255,255,.08);
 }
 .node-tip.show { opacity: 1; }
-.node-tip-title { font-family: var(--disp); font-size: 1rem; font-weight: 400; color: var(--W); margin-bottom: .2rem; }
-.node-tip-desc  { font-size: .82rem; color: rgba(255,255,255,.78); line-height: 1.5; }
+.node-tip-title { font-family: var(--disp); font-size: 1rem; font-weight: 400; color: var(--W); margin-bottom: .25rem; }
+.node-tip-desc  { font-size: .82rem; color: rgba(255,255,255,.72); line-height: 1.5; }
 
 /* floater */
 .floaters { position: fixed; bottom: 1.75rem; right: 1.5rem; z-index: 80; }
@@ -780,56 +782,46 @@ nav:not(.up) .nav-links a.active { color: #fff !important; opacity: 1; }
         </div>
       </div>
 
-      <!-- 4 PRIMARY tip nodes: cardinal points (outermost) -->
-      <div class="node tip-node" data-x="50" data-y="2"
+      <!-- nodes spaced evenly around ellipse perimeter -->
+      <div class="node tip-node" data-x="50" data-y="4"
            data-title="Independent Hotels"
            data-desc="Manage agent bookings, commissions, and packages from a single portal.">
-        <div class="node-dot"></div>
-        <div class="node-label">Independent Hotels</div>
+        <div class="node-chip">Independent Hotels</div>
       </div>
-      <div class="node tip-node" data-x="98" data-y="50"
+      <div class="node tip-node" data-x="78" data-y="18"
            data-title="Travel Agents"
            data-desc="Book instantly, request group quotes, and track commissions in real time.">
-        <div class="node-dot"></div>
-        <div class="node-label">Travel Agents</div>
+        <div class="node-chip">Travel Agents</div>
       </div>
-      <div class="node tip-node" data-x="50" data-y="98"
+      <div class="node tip-node" data-x="96" data-y="50"
            data-title="Hotel Chains"
            data-desc="Multi-property visibility with unified agent channel mapping and reporting.">
-        <div class="node-dot"></div>
-        <div class="node-label">Hotel Chains</div>
+        <div class="node-chip">Hotel Chains</div>
       </div>
-      <div class="node tip-node" data-x="2" data-y="50"
+      <div class="node tip-node" data-x="78" data-y="82"
            data-title="DMCs"
            data-desc="Build multi-day packages, manage itineraries, and coordinate vendor approvals.">
-        <div class="node-dot"></div>
-        <div class="node-label">DMCs</div>
+        <div class="node-chip">DMCs</div>
       </div>
-
-      <!-- 4 SECONDARY recess nodes: diagonal points (inward, close to center) -->
-      <div class="node" data-x="65" data-y="35"
+      <div class="node tip-node" data-x="50" data-y="96"
            data-title="Corporate Accounts"
            data-desc="City ledger running balances, charge posting, and invoice generation.">
-        <div class="node-dot"></div>
-        <div class="node-label">Corporate Accounts</div>
+        <div class="node-chip">Corporate Accounts</div>
       </div>
-      <div class="node" data-x="65" data-y="65"
+      <div class="node tip-node" data-x="22" data-y="82"
            data-title="Fleet Operators"
            data-desc="Register vehicles and drivers, manage availability, and receive cab bookings.">
-        <div class="node-dot"></div>
-        <div class="node-label">Fleet Operators</div>
+        <div class="node-chip">Fleet Operators</div>
       </div>
-      <div class="node" data-x="35" data-y="65"
+      <div class="node tip-node" data-x="4" data-y="50"
            data-title="Vendors &amp; Suppliers"
            data-desc="Receive approval requests, confirm services, and coordinate per booking day.">
-        <div class="node-dot"></div>
-        <div class="node-label">Vendors &amp; Suppliers</div>
+        <div class="node-chip">Vendors &amp; Suppliers</div>
       </div>
-      <div class="node" data-x="35" data-y="35"
+      <div class="node tip-node" data-x="22" data-y="18"
            data-title="MICE &amp; Events"
            data-desc="Handle 10+ room group quotes, negotiate, and send Razorpay payment links.">
-        <div class="node-dot"></div>
-        <div class="node-label">MICE &amp; Events</div>
+        <div class="node-chip">MICE &amp; Events</div>
       </div>
 
       <div class="node-tip" id="nodeTip">
@@ -1431,22 +1423,14 @@ addEventListener('scroll', () => nav.classList.toggle('up', scrollY > 30), {pass
     svg.innerHTML = '';
     const W = canvas.offsetWidth, H = canvas.offsetHeight;
     const cx = W / 2, cy = H / 2;
+    const rx = W * 0.46, ry = H * 0.42;
 
-    /* ── draw 4-pointed star outline ── */
-    // outer tip radius (cardinal) and inner recess radius (diagonal)
-    const ro = W * 0.48;   // tips reach near the canvas edge
-    const ri = W * 0.21;   // diagonals sit close to center
-    const pts = [];
-    for (let i = 0; i < 8; i++) {
-      const angle = (i * Math.PI / 4) - Math.PI / 2; // start top
-      const r = i % 2 === 0 ? ro : ri;
-      pts.push([ cx + r * Math.cos(angle), cy + r * Math.sin(angle) ]);
-    }
-    const d = pts.map((p, i) => (i === 0 ? `M${p[0]},${p[1]}` : `L${p[0]},${p[1]}`)).join(' ') + ' Z';
-    const star = document.createElementNS(NS, 'path');
-    star.setAttribute('d', d);
-    star.setAttribute('class', 'star-path');
-    svg.appendChild(star);
+    /* ── draw ellipse outline ── */
+    const ellipse = document.createElementNS(NS, 'ellipse');
+    ellipse.setAttribute('cx', cx); ellipse.setAttribute('cy', cy);
+    ellipse.setAttribute('rx', rx); ellipse.setAttribute('ry', ry);
+    ellipse.setAttribute('class', 'star-path');
+    svg.appendChild(ellipse);
 
     /* ── draw spoke lines hub → each node ── */
     nodes.forEach((n, i) => {
@@ -1520,10 +1504,15 @@ addEventListener('scroll', () => nav.classList.toggle('up', scrollY > 30), {pass
     });
 
     node.addEventListener('mouseleave', () => {
-      canvas.classList.remove('hovering');
-      nodes.forEach(n => n.classList.remove('active', 'nearby'));
-      svg.querySelectorAll('line').forEach(l => l.classList.remove('lit'));
       tip.classList.remove('show');
+      /* let CSS transitions finish before snapping everything back */
+      setTimeout(() => {
+        if (!canvas.querySelector('.node:hover')) {
+          canvas.classList.remove('hovering');
+          nodes.forEach(n => n.classList.remove('active', 'nearby'));
+          svg.querySelectorAll('line').forEach(l => l.classList.remove('lit'));
+        }
+      }, 80);
     });
   });
 })();
