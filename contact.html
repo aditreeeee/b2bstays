@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Request a Demo or Discuss Requirements – B2BStays</title>
+  <meta name="description" content="Request a B2BStays demo, ask about modules, discuss your revenue scenario or talk through your business requirements.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Contact B2BStays">
+  <meta property="og:description" content="Request a demo or discuss business requirements.">
+  <meta name="theme-color" content="#0b1f3a">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563eb'/%3E%3Ctext x='16' y='22' font-size='16' font-family='Arial' font-weight='700' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<nav class="navbar navbar-expand-lg sticky-top site-nav" aria-label="Main navigation">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="index.html"><span class="brand-mark"><i class="bi bi-buildings" aria-hidden="true"></i></span>B2BStays</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="modules.html">Modules</a></li>
+        <li class="nav-item"><a class="nav-link" href="solutions.html">Solutions</a></li>
+        <li class="nav-item ms-lg-2"><a class="btn btn-brand btn-sm" href="contact.html?topic=demo">Request a Demo</a></li>
+        <li class="nav-item ms-lg-1"><a class="btn btn-outline-secondary btn-sm" href="login.html">Log In</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+  <header class="hero page-hero">
+    <div class="container">
+      <span class="eyebrow" style="color:#5eead4">Contact</span>
+      <h1>Request a demo or discuss your requirements</h1>
+      <p class="lead mt-3">Tell us about your business and we will respond about the modules that fit.</p>
+    </div>
+  </header>
+
+  <section class="section" aria-labelledby="fH">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-7">
+          <h2 id="fH" class="h4 mb-3">Enquiry form</h2>
+          <form id="enquiryForm" action="api/enquiry.php" method="post" novalidate>
+            <div class="row g-3">
+              <div class="col-sm-6"><label class="form-label" for="name">Full name <span aria-hidden="true">*</span></label><input class="form-control" id="name" name="name" type="text" autocomplete="name" required aria-describedby="err-name"><div class="invalid-feedback" id="err-name"></div></div>
+              <div class="col-sm-6"><label class="form-label" for="company">Company <span aria-hidden="true">*</span></label><input class="form-control" id="company" name="company" type="text" autocomplete="organization" required aria-describedby="err-company"><div class="invalid-feedback" id="err-company"></div></div>
+              <div class="col-sm-6"><label class="form-label" for="business_type">Business type <span aria-hidden="true">*</span></label>
+                <select class="form-select" id="business_type" name="business_type" required aria-describedby="err-business_type">
+                  <option value="">Select…</option>
+                  <option value="hotel">Hotel or accommodation provider</option>
+                  <option value="travel_agent">Travel agent or tour operator</option>
+                  <option value="package_operator">Package operator</option>
+                  <option value="transport">Transportation business</option>
+                  <option value="vendor">Vendor or supplier</option>
+                  <option value="corporate_travel">Corporate travel business</option>
+                  <option value="other">Other</option>
+                </select><div class="invalid-feedback" id="err-business_type"></div></div>
+              <div class="col-sm-6"><label class="form-label" for="topic">I would like to</label>
+                <select class="form-select" id="topic" name="topic">
+                  <option value="demo">Request a demo</option>
+                  <option value="modules">Explore modules</option>
+                  <option value="revenue">Discuss my revenue scenario</option>
+                  <option value="requirements">Discuss business requirements</option>
+                </select></div>
+              <div class="col-sm-6"><label class="form-label" for="email">Email <span aria-hidden="true">*</span></label><input class="form-control" id="email" name="email" type="email" autocomplete="email" required aria-describedby="err-email"><div class="invalid-feedback" id="err-email"></div></div>
+              <div class="col-sm-6"><label class="form-label" for="phone">Phone <span aria-hidden="true">*</span></label><input class="form-control" id="phone" name="phone" type="tel" autocomplete="tel" required aria-describedby="err-phone"><div class="invalid-feedback" id="err-phone"></div></div>
+              <div class="col-12"><label class="form-label" for="message">Message <span aria-hidden="true">*</span></label><textarea class="form-control" id="message" name="message" rows="5" maxlength="2000" required aria-describedby="err-message"></textarea><div class="invalid-feedback" id="err-message"></div></div>
+              <div class="hp-field" aria-hidden="true"><label>Leave blank <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+              <div class="col-12"><button class="btn btn-brand btn-lg" type="submit">Send enquiry</button></div>
+            </div>
+            <div id="formStatus" class="alert d-none mt-3" role="status" tabindex="-1"></div>
+          </form>
+        </div>
+        <div class="col-lg-5">
+          <div class="card-x p-4">
+            <h2 class="h5">What happens next</h2>
+            <ol class="ps-3 mb-3"><li>We review your business type and requirements.</li><li>We suggest which modules apply.</li><li>We arrange a demo using your scenario.</li></ol>
+            <p class="small text-muted-2 mb-0">We use your details only to respond to this enquiry.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-5"><h5>B2BStays</h5><p>Business-management software for accommodation providers and travel partners. Not a consumer booking marketplace.</p></div>
+      <div class="col-6 col-md-3"><h5>Explore</h5><ul class="list-unstyled"><li><a href="modules.html">Modules</a></li><li><a href="solutions.html">Solutions</a></li></ul></div>
+      <div class="col-6 col-md-4"><h5>Talk to us</h5><ul class="list-unstyled"><li><a href="contact.html?topic=demo">Request a Demo</a></li><li><a href="contact.html?topic=requirements">Discuss Business Requirements</a></li></ul></div>
+    </div>
+    <hr style="border-color:rgba(255,255,255,.12)">
+    <p class="small mb-0">&copy; <span id="year">2026</span> B2BStays. Scenarios and outcomes on this site are illustrative and depend on your processes and usage; no results are guaranteed.</p>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/form.js"></script>
+</body>
+</html>
