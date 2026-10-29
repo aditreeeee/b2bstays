@@ -1,0 +1,4 @@
+# Keep secrets and schema out of the web.
+<FilesMatch "^(config\.php|config\.sample\.php|schema\.sql)$">
+  Require all denied
+</FilesMatch>
